@@ -1,0 +1,27 @@
+{
+  "name": "json-rpg",
+  "version": "1.0.0",
+  "description": "Generic RPG character generator",
+  "main": "index.js",
+  "author": "Andre Ribas <zitoloco@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch --coverage=true"
+  },
+  "devDependencies": {
+    "eslint": "^7.12.0",
+    "eslint-config-standard": "^15.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.2",
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "log4js": "^6.3.0",
+    "ramda": "^0.27.1"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "name": "shadowrun",
+  "edition": "5",
+  "version": "1.0.0",
+  "groups": [
+    {
+      "id": "lists",
+      "fields": [
+        {
+          "id": "metatypes",
+          "type": "choices",
+          "initial": ["human", "elf", "dwarf", "ork", "troll"]
+        },
+        {
+          "id": "concepts",
+          "type": "choices",
+          "initial": [
+            "face",
+            "decker",
+            "rigger",
+            "spellcaster",
+            "street samurai",
+            "technomancer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal_data",
+      "visible": true,
+      "fields": [
+        {
+          "id": "name",
+          "type": "text"
+        },
+        {
+          "id": "alias",
+          "type": "text",
+          "validate": [
+            {
+              "max_length": 20
+            }
+          ]
+        },
+        {
+          "id": "concept",
+          "type": "select",
+          "choices": "lists.concepts"
+        },
+        {
+          "id": "metatype",
+          "type": "select",
+          "choices": "lists.metatypes"
+        }
+      ]
+    },
+    {
+      "id": "special_attribute",
+      "visible": false,
+      "fields": [
+        {
+          "id": "edge",
+          "type": "number",
+          "editable": false,
+          "initial": 1
+        },
+        {
+          "id": "ressonance",
+          "type": "number",
+          "editable": false,
+          "initial": 1
+        }
+      ]
+    }
+  ],
+  "hooks": []
+}
