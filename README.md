@@ -10,7 +10,7 @@ para criar os personagens.
 
 O resultado da biblioteca será um arquivo json do personagem criado. Assim, esse
 **arquivo do personagem** pode ser usado para alimentar uma interface que criará
-a ficha imprmível que conhecemos.
+a ficha imprimível que conhecemos.
 
 Para que a biblioteca possa gerar e validar o arquivo json do personagem é
 preciso fornecer a ela um **arquivo de regras**.
@@ -23,15 +23,13 @@ Todas as informações ficam agrupadas dentro de um `group`.
 
 ```json
 {
-  "group": [
+  "groups": [
     {
       "id": "lists",
-      "visible": false,
       "fields": []
     }
     {
       "id": "personal_data",
-      "visible": true,
       "fields": []
     }
   ]
@@ -58,8 +56,6 @@ grupo possui. Os campos podem ter valores `text`, `number`, `select` ou
 {
   "id": "name",
   "type": "text",
-  "editable": true,
-  "initial": "Alberto Roberto"
 }
 ```
 
@@ -67,8 +63,8 @@ grupo possui. Os campos podem ter valores `text`, `number`, `select` ou
 | -------- | ------- | ------------------------------------------- | ------- | ----------- |
 | id       | string  | identificação única do campo                | -       | sim         |
 | type     | string  | tipo de conteudo do campo                   | -       | sim         |
-| initial  | string  | valor inicial do campo                      | ''      | não         |
 | editable | boolean | define se o campo pode ter o valor alterado | true    | não         |
+| initial  | string  | valor inicial do campo                      | ''      | não         |
 
 #### Campo de number
 
@@ -76,7 +72,6 @@ grupo possui. Os campos podem ter valores `text`, `number`, `select` ou
 {
   "id": "name",
   "type": "number",
-  "editable": true,
   "initial": 10
 }
 ```
@@ -85,8 +80,8 @@ grupo possui. Os campos podem ter valores `text`, `number`, `select` ou
 | -------- | ------- | ------------------------------------------- | ------- | ----------- |
 | id       | string  | identificação única do campo                | -       | sim         |
 | type     | string  | tipo de conteudo do campo                   | -       | sim         |
-| initial  | integer | valor inicial do campo                      | 0       | sim         |
 | editable | boolean | define se o campo pode ter o valor alterado | true    | não         |
+| initial  | integer | valor inicial do campo                      | 0       | sim         |
 
 #### Campo de select
 
@@ -104,7 +99,7 @@ grupo possui. Os campos podem ter valores `text`, `number`, `select` ou
 | ------- | ------------- | ---------------------------- | ------- | ----------- |
 | id      | string        | identificação única do campo | -       | sim         |
 | type    | string        | tipo de conteudo do campo    | -       | sim         |
-| choices | array, string | lista de opções disponíveis  | -       | não         |
+| choices | array, string | lista de opções disponíveis  | -       | sim         |
 
 Para obter as `choices` de um campo `choices`:
 
@@ -130,4 +125,4 @@ Para obter as `choices` de um campo `choices`:
 | ------- | ------ | ---------------------------- | ------- | ----------- |
 | id      | string | identificação única do campo | -       | sim         |
 | type    | string | tipo de conteudo do campo    | -       | sim         |
-| choices | array  | lista de opções disponíveis  | -       | não         |
+| choices | array  | lista de opções disponíveis  | -       | sim         |
