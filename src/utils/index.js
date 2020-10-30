@@ -45,14 +45,6 @@ function buildResponse (group) {
     }
   })
 
-  /* const errors = [mergeAll(
-    group.fields.map((field) => {
-      if (field.errors.length > 0) {
-        return { field: field.id, message: field.errors }
-      }
-    })
-  )] */
-
   return { ...response, errors }
 }
 

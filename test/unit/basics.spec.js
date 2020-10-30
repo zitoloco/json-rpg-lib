@@ -152,4 +152,19 @@ describe('setValue', () => {
       expect(value).toBe('defined new value')
     })
   })
+
+  describe('not editable and with no inicial value', () => {
+    it('should return empty', () => {
+      const field = {
+        id: 'name',
+        type: 'text',
+        initial: '',
+        editable: false
+      }
+      const character = { name: 'defined new value' }
+      const value = setValue(false, field, character)
+
+      expect(value).toBe('')
+    })
+  })
 })
