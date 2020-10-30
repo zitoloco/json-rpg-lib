@@ -21,6 +21,9 @@ preciso fornecer a ela um **arquivo de regras**.
 
 Todas as informações ficam agrupadas dentro de um `group`.
 
+No exemplo abaixo foi criado um grupo para armazenar listas e um outro grupo 
+para os dados pessoais do personagem.
+
 ```json
 {
   "groups": [
@@ -47,14 +50,30 @@ Todas as informações ficam agrupadas dentro de um `group`.
 ### Fields
 
 O campo `fields` fica dentro de um grupo e ele contém todos os campos que o
-grupo possui. Os campos podem ter valores `text`, `number`, `select` ou
+grupo possui. 
+
+Quando pensamos que pos dados básico de um porsonagem podem ser:
+- nome do jogador
+- nome do personagem
+- idade
+- peso
+
+Cada um desses dados se torna um `field` dentro do json. 
+
+Os campos podem ter valores `text`, `number`, `select` ou
 `choices`.
 
 #### Campo de text
 
+Exempo de campos de texto.
+
 ```json
 {
-  "id": "name",
+  "id": "player_name",
+  "type": "text",
+},
+{
+  "id": "character_name",
   "type": "text",
 }
 ```
@@ -68,11 +87,16 @@ grupo possui. Os campos podem ter valores `text`, `number`, `select` ou
 
 #### Campo de number
 
+Exemplo de campos numéricos.
+
 ```json
 {
-  "id": "name",
+  "id": "age",
   "type": "number",
-  "initial": 10
+},
+{
+  "id": "weight",
+  "type": "number",
 }
 ```
 
