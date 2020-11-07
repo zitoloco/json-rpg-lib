@@ -18,7 +18,7 @@ function validate (rule, value) {
 function validateField (field) {
   const errors = []
 
-  if (field.type === 'text') {
+  if (['text', 'number'].includes(field.type)) {
     if (haveValidation(field)) {
       field.validate.forEach((rule) => {
         const validateResult = validate(rule, field.value)
@@ -27,6 +27,12 @@ function validateField (field) {
           errors.push(validateResult)
         }
       })
+    }
+  }
+
+  if (field.type === 'choices') {
+    if (!field.initial.includes(field.value)) {
+      errors.push(`Invalid choice: "${field.value}"`)
     }
   }
 

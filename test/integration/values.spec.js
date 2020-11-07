@@ -204,4 +204,60 @@ describe('Test values, initial values and editable flag', () => {
       expect(resultChar).toMatchObject(desiredChar)
     })
   })
+
+  describe('select with valid choice value', () => {
+    it('should return value', () => {
+      const customRules = {
+        groups: [
+          {
+            id: 'personal_data',
+            fields: [
+              {
+                id: 'race',
+                type: 'choices',
+                initial: ['human', 'elf', 'dwarf']
+              }
+            ]
+          }
+        ]
+      }
+
+      const customChar = { race: 'elf' }
+      const resultChar = run(customRules, customChar)
+      const desiredChar = [{ personal_data: { race: 'elf' }, errors: [] }]
+      expect(resultChar).toEqual(desiredChar)
+    })
+  })
+
+  describe('select with INVALID choice value', () => {
+    it.only('should return an error', () => {
+      const customRules = {
+        groups: [
+          {
+            id: 'personal_data',
+            fields: [
+              {
+                id: 'race',
+                type: 'choices',
+                initial: ['human', 'elf', 'dwarf']
+              }
+            ]
+          }
+        ]
+      }
+
+      const customChar = { race: 'ork' }
+      const resultChar = run(customRules, customChar)
+      const desiredChar = [{
+        personal_data: { race: 'ork' },
+        errors: [
+          {
+            field: 'race',
+            message: ['Invalid choice: "ork"']
+          }
+        ]
+      }]
+      expect(resultChar).toEqual(desiredChar)
+    })
+  })
 })
