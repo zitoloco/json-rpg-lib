@@ -140,6 +140,19 @@ describe('setValue', () => {
   })
 
   describe('editable', () => {
+    it('without value should return initial value', () => {
+      const field = {
+        id: 'name',
+        type: 'text',
+        initial: 'initial value',
+        editable: false
+      }
+      const character = { }
+      const value = setValue(false, field, character)
+
+      expect(value).toBe('initial value')
+    })
+
     it('should return character value', () => {
       const field = {
         id: 'name',
@@ -150,6 +163,17 @@ describe('setValue', () => {
       const value = setValue(true, field, character)
 
       expect(value).toBe('defined new value')
+    })
+
+    it('without initial and character value should return empty', () => {
+      const field = {
+        id: 'name',
+        type: 'text'
+      }
+      const character = { }
+      const value = setValue(true, field, character)
+
+      expect(value).toBe('')
     })
   })
 
