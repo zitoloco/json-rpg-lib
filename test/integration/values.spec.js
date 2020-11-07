@@ -214,8 +214,8 @@ describe('Test values, initial values and editable flag', () => {
             fields: [
               {
                 id: 'race',
-                type: 'choices',
-                initial: ['human', 'elf', 'dwarf']
+                type: 'select',
+                choices: ['human', 'elf', 'dwarf']
               }
             ]
           }
@@ -230,7 +230,7 @@ describe('Test values, initial values and editable flag', () => {
   })
 
   describe('select with INVALID choice value', () => {
-    it.only('should return an error', () => {
+    it('should return an error', () => {
       const customRules = {
         groups: [
           {
@@ -238,8 +238,8 @@ describe('Test values, initial values and editable flag', () => {
             fields: [
               {
                 id: 'race',
-                type: 'choices',
-                initial: ['human', 'elf', 'dwarf']
+                type: 'select',
+                choices: ['human', 'elf', 'dwarf']
               }
             ]
           }

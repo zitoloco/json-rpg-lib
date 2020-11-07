@@ -30,8 +30,8 @@ function validateField (field) {
     }
   }
 
-  if (field.type === 'choices') {
-    if (!field.initial.includes(field.value)) {
+  if (field.type === 'select') {
+    if (!field.choices.includes(field.value)) {
       errors.push(`Invalid choice: "${field.value}"`)
     }
   }
