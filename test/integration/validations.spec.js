@@ -1,61 +1,140 @@
-const { haveValidation } = require('../../src/utils/validate')
+const { run } = require('../../src/json-rpg')
 
-describe('validation', () => {
-  describe('exist with one validation', () => {
-    it('should return true', () => {
-      const field = {
-        id: 'name',
-        type: 'text',
-        validate: [
-          'value.length > 1'
+describe('Test valid values', () => {
+  describe('with correct values', () => {
+    it('should return an empty error array', () => {
+      const customRules = {
+        groups: [
+          {
+            id: 'personal_data',
+            fields: [
+              {
+                id: 'name',
+                type: 'text',
+                validate: [
+                  'value.length > 0',
+                  'value.length <= 50'
+                ]
+              },
+              {
+                id: 'alias',
+                type: 'text',
+                validate: [
+                  'value.length > 0',
+                  'value.length <= 10'
+                ]
+              }
+            ]
+          }
         ]
       }
-      const value = haveValidation(field)
 
-      expect(value).toBeTruthy()
+      const customChar = { name: 'Klauss Hoffmann', alias: 'x' }
+      const resultChar = run(customRules, customChar)
+      const desiredChar = [
+        {
+          personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
+          errors: []
+        }
+      ]
+
+      expect(resultChar).toMatchObject(desiredChar)
     })
   })
 
-  describe('exist with more than one validation', () => {
-    it('should return true', () => {
-      const field = {
-        id: 'name',
-        type: 'text',
-        validate: [
-          'value.length > 1',
-          'value.length <= 10'
+  describe('with one incorrect value', () => {
+    it('should return validation error', () => {
+      const customRules = {
+        groups: [
+          {
+            id: 'personal_data',
+            fields: [
+              {
+                id: 'name',
+                type: 'text',
+                validate: [
+                  'value.length > 0',
+                  'value.length <= 10'
+                ]
+              },
+              {
+                id: 'alias',
+                type: 'text',
+                validate: [
+                  'value.length > 0',
+                  'value.length <= 10'
+                ]
+              }
+            ]
+          }
         ]
       }
-      const value = haveValidation(field)
 
-      expect(value).toBeTruthy()
+      const customChar = { name: 'Klauss Hoffmann', alias: 'x' }
+      const resultChar = run(customRules, customChar)
+      const desiredChar = [
+        {
+          personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
+          errors: [
+            {
+              field: 'name',
+              message: ['value.length <= 10']
+            }
+          ]
+        }
+      ]
+
+      expect(resultChar).toMatchObject(desiredChar)
     })
   })
 
-  describe('exist with an empty array', () => {
-    it('should return false', () => {
-      const field = {
-        id: 'name',
-        type: 'text',
-        validate: [
-
+  describe('with two incorrect value', () => {
+    it('should return validation error', () => {
+      const customRules = {
+        groups: [
+          {
+            id: 'personal_data',
+            fields: [
+              {
+                id: 'name',
+                type: 'text',
+                validate: [
+                  'value.length > 0',
+                  'value.length <= 10'
+                ]
+              },
+              {
+                id: 'alias',
+                type: 'text',
+                validate: [
+                  'value.length >= 3',
+                  'value.length <= 10'
+                ]
+              }
+            ]
+          }
         ]
       }
-      const value = haveValidation(field)
 
-      expect(value).not.toBeTruthy()
-    })
-  })
+      const customChar = { name: 'Klauss Hoffmann', alias: 'x' }
+      const resultChar = run(customRules, customChar)
+      const desiredChar = [
+        {
+          personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
+          errors: [
+            {
+              field: 'name',
+              message: ['value.length <= 10']
+            },
+            {
+              field: 'alias',
+              message: ['value.length >= 3']
+            }
+          ]
+        }
+      ]
 
-  describe('not exist', () => {
-    it('should return false', () => {
-      const field = {
-        id: 'name',
-        type: 'text'
-      }
-      const value = haveValidation(field)
-
-      expect(value).not.toBeTruthy()
+      expect(resultChar).toMatchObject(desiredChar)
     })
   })
 })

@@ -1,7 +1,7 @@
 const { run } = require('../../src/json-rpg')
 
-describe('type text values', () => {
-  describe('with no value and no default value', () => {
+describe('Test values, initial values and editable flag', () => {
+  describe('text with no value and no default value', () => {
     it('should return "undefined"', () => {
       const customRules = {
         groups: [
@@ -26,7 +26,7 @@ describe('type text values', () => {
     })
   })
 
-  describe('with no value but with initial value', () => {
+  describe('text with no value but with initial value', () => {
     it('should return the initial value', () => {
       const customRules = {
         groups: [
@@ -52,7 +52,7 @@ describe('type text values', () => {
     })
   })
 
-  describe('with value and default value', () => {
+  describe('text with value and default value', () => {
     it('should return character value', () => {
       const customRules = {
         groups: [
@@ -78,7 +78,7 @@ describe('type text values', () => {
     })
   })
 
-  describe('with value and default value not editable', () => {
+  describe('text with value and default value not editable', () => {
     it('should return default value', () => {
       const customRules = {
         groups: [
@@ -104,146 +104,160 @@ describe('type text values', () => {
       expect(resultChar).toMatchObject(desiredChar)
     })
   })
-})
 
-describe('type text validations', () => {
-  describe('with correct values', () => {
-    it('should return an empty error array', () => {
+  describe('number with no value and no initial value', () => {
+    it('should return "" (empty)', () => {
       const customRules = {
         groups: [
           {
             id: 'personal_data',
             fields: [
               {
-                id: 'name',
-                type: 'text',
-                validate: [
-                  'value.length > 0',
-                  'value.length <= 50'
-                ]
-              },
-              {
-                id: 'alias',
-                type: 'text',
-                validate: [
-                  'value.length > 0',
-                  'value.length <= 10'
-                ]
+                id: 'age',
+                type: 'number'
               }
             ]
           }
         ]
       }
 
-      const customChar = { name: 'Klauss Hoffmann', alias: 'x' }
+      const customChar = {}
       const resultChar = run(customRules, customChar)
-      const desiredChar = [
-        {
-          personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
-          errors: []
-        }
-      ]
+      const desiredChar = [{ personal_data: { age: '' } }]
 
       expect(resultChar).toMatchObject(desiredChar)
     })
   })
 
-  describe('with one incorrect value', () => {
-    it('should return validation error', () => {
+  describe('number with no value but with initial value', () => {
+    it('should return the initial value', () => {
       const customRules = {
         groups: [
           {
             id: 'personal_data',
             fields: [
               {
-                id: 'name',
-                type: 'text',
-                validate: [
-                  'value.length > 0',
-                  'value.length <= 10'
-                ]
-              },
-              {
-                id: 'alias',
-                type: 'text',
-                validate: [
-                  'value.length > 0',
-                  'value.length <= 10'
-                ]
+                id: 'age',
+                type: 'number',
+                initial: 20
               }
             ]
           }
         ]
       }
 
-      const customChar = { name: 'Klauss Hoffmann', alias: 'x' }
+      const customChar = {}
       const resultChar = run(customRules, customChar)
-      const desiredChar = [
-        {
-          personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
-          errors: [
-            {
-              field: 'name',
-              message: ['value.length <= 10']
-            }
-          ]
-        }
-      ]
+      const desiredChar = [{ personal_data: { age: 20 } }]
 
       expect(resultChar).toMatchObject(desiredChar)
     })
   })
 
-  describe('with one incorrect value', () => {
-    it('should return validation error', () => {
+  describe('number with value and default value', () => {
+    it('should return character value', () => {
       const customRules = {
         groups: [
           {
             id: 'personal_data',
             fields: [
               {
-                id: 'name',
-                type: 'text',
-                validate: [
-                  'value.length > 0',
-                  'value.length <= 10'
-                ]
-              },
-              {
-                id: 'alias',
-                type: 'text',
-                validate: [
-                  'value.length >= 3',
-                  'value.length <= 10'
-                ]
+                id: 'age',
+                type: 'number',
+                initial: 20
               }
             ]
           }
         ]
       }
 
-      const customChar = { name: 'Klauss Hoffmann', alias: 'x' }
+      const customChar = { age: 23 }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [
-        {
-          personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
-          errors: [
-            {
-              field: 'name',
-              message: ['value.length <= 10']
-            },
-            {
-              field: 'alias',
-              message: ['value.length >= 3']
-            }
-          ]
-        }
-      ]
-
-      // console.log(' resultChar: ', JSON.stringify(resultChar))
-      // console.log('desiredChar: ', JSON.stringify(desiredChar))
+      const desiredChar = [{ personal_data: { age: 23 } }]
 
       expect(resultChar).toMatchObject(desiredChar)
+    })
+  })
+
+  describe('number with value and default value not editable', () => {
+    it('should return default value', () => {
+      const customRules = {
+        groups: [
+          {
+            id: 'personal_data',
+            fields: [
+              {
+                id: 'age',
+                type: 'number',
+                editable: false,
+                initial: 20
+              }
+            ]
+          }
+        ]
+      }
+
+      const customChar = { age: 23 }
+      const resultChar = run(customRules, customChar)
+      const desiredChar = [{ personal_data: { age: 20 } }]
+
+      expect(resultChar).toMatchObject(desiredChar)
+    })
+  })
+
+  describe('select with valid choice value', () => {
+    it('should return value', () => {
+      const customRules = {
+        groups: [
+          {
+            id: 'personal_data',
+            fields: [
+              {
+                id: 'race',
+                type: 'select',
+                choices: ['human', 'elf', 'dwarf']
+              }
+            ]
+          }
+        ]
+      }
+
+      const customChar = { race: 'elf' }
+      const resultChar = run(customRules, customChar)
+      const desiredChar = [{ personal_data: { race: 'elf' }, errors: [] }]
+      expect(resultChar).toEqual(desiredChar)
+    })
+  })
+
+  describe('select with INVALID choice value', () => {
+    it('should return an error', () => {
+      const customRules = {
+        groups: [
+          {
+            id: 'personal_data',
+            fields: [
+              {
+                id: 'race',
+                type: 'select',
+                choices: ['human', 'elf', 'dwarf']
+              }
+            ]
+          }
+        ]
+      }
+
+      const customChar = { race: 'ork' }
+      const resultChar = run(customRules, customChar)
+      const desiredChar = [{
+        personal_data: { race: 'ork' },
+        errors: [
+          {
+            field: 'race',
+            message: ['Invalid choice: "ork"']
+          }
+        ]
+      }]
+      expect(resultChar).toEqual(desiredChar)
     })
   })
 })
