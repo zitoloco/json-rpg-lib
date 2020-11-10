@@ -10,12 +10,12 @@
         {
           "id": "metatypes",
           "type": "choices",
-          "initial": ["human", "elf", "dwarf", "ork", "troll"]
+          "values": ["human", "elf", "dwarf", "ork", "troll"]
         },
         {
           "id": "concepts",
           "type": "choices",
-          "initial": [
+          "values": [
             "face",
             "decker",
             "rigger",
@@ -31,7 +31,11 @@
       "fields": [
         {
           "id": "name",
-          "type": "text"
+          "type": "text",
+          "validate": [
+            "value.length >= 1",
+            "value.length <= 100"
+          ]
         },
         {
           "id": "alias",

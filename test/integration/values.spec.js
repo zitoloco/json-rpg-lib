@@ -7,7 +7,6 @@ describe('Test values, initial values and editable flag', () => {
         groups: [
           {
             id: 'personal_data',
-            visible: true,
             fields: [
               {
                 id: 'name',
@@ -20,7 +19,7 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = {}
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{ personal_data: { name: '' } }]
+      const desiredChar = { personal_data: { name: undefined } }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -32,7 +31,6 @@ describe('Test values, initial values and editable flag', () => {
         groups: [
           {
             id: 'personal_data',
-            visible: true,
             fields: [
               {
                 id: 'name',
@@ -46,7 +44,7 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = {}
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{ personal_data: { name: 'Klauss Hoffmann' } }]
+      const desiredChar = { personal_data: { name: 'Klauss Hoffmann' } }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -58,7 +56,6 @@ describe('Test values, initial values and editable flag', () => {
         groups: [
           {
             id: 'personal_data',
-            visible: true,
             fields: [
               {
                 id: 'name',
@@ -72,7 +69,7 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = { name: 'Erick Hoffmann' }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{ personal_data: { name: 'Erick Hoffmann' } }]
+      const desiredChar = { personal_data: { name: 'Erick Hoffmann' } }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -84,7 +81,6 @@ describe('Test values, initial values and editable flag', () => {
         groups: [
           {
             id: 'personal_data',
-            visible: true,
             fields: [
               {
                 id: 'name',
@@ -99,7 +95,7 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = { name: 'Erick Hoffmann' }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{ personal_data: { name: 'Klauss Hoffmann' } }]
+      const desiredChar = { personal_data: { name: 'Klauss Hoffmann' } }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -123,7 +119,7 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = {}
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{ personal_data: { age: '' } }]
+      const desiredChar = { personal_data: { age: undefined } }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -148,7 +144,7 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = {}
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{ personal_data: { age: 20 } }]
+      const desiredChar = { personal_data: { age: 20 } }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -173,7 +169,7 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = { age: 23 }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{ personal_data: { age: 23 } }]
+      const desiredChar = { personal_data: { age: 23 } }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -199,7 +195,7 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = { age: 23 }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{ personal_data: { age: 20 } }]
+      const desiredChar = { personal_data: { age: 20 } }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -224,7 +220,7 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = { race: 'elf' }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{ personal_data: { race: 'elf' }, errors: [] }]
+      const desiredChar = { personal_data: { race: 'elf' } }
       expect(resultChar).toEqual(desiredChar)
     })
   })
@@ -248,15 +244,16 @@ describe('Test values, initial values and editable flag', () => {
 
       const customChar = { race: 'ork' }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [{
+      const desiredChar = {
         personal_data: { race: 'ork' },
         errors: [
           {
             field: 'race',
+            value: 'ork',
             message: ['Invalid choice: "ork"']
           }
         ]
-      }]
+      }
       expect(resultChar).toEqual(desiredChar)
     })
   })

@@ -2,7 +2,7 @@ const { run } = require('../../src/json-rpg')
 
 describe('Test valid values', () => {
   describe('with correct values', () => {
-    it('should return an empty error array', () => {
+    it('shouldn\'t return an error', () => {
       const customRules = {
         groups: [
           {
@@ -31,12 +31,9 @@ describe('Test valid values', () => {
 
       const customChar = { name: 'Klauss Hoffmann', alias: 'x' }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [
-        {
-          personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
-          errors: []
-        }
-      ]
+      const desiredChar = {
+        personal_data: { name: 'Klauss Hoffmann', alias: 'x' }
+      }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -72,17 +69,15 @@ describe('Test valid values', () => {
 
       const customChar = { name: 'Klauss Hoffmann', alias: 'x' }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [
-        {
-          personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
-          errors: [
-            {
-              field: 'name',
-              message: ['value.length <= 10']
-            }
-          ]
-        }
-      ]
+      const desiredChar = {
+        personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
+        errors: [
+          {
+            field: 'name',
+            message: ['value.length <= 10']
+          }
+        ]
+      }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
@@ -118,21 +113,19 @@ describe('Test valid values', () => {
 
       const customChar = { name: 'Klauss Hoffmann', alias: 'x' }
       const resultChar = run(customRules, customChar)
-      const desiredChar = [
-        {
-          personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
-          errors: [
-            {
-              field: 'name',
-              message: ['value.length <= 10']
-            },
-            {
-              field: 'alias',
-              message: ['value.length >= 3']
-            }
-          ]
-        }
-      ]
+      const desiredChar = {
+        personal_data: { name: 'Klauss Hoffmann', alias: 'x' },
+        errors: [
+          {
+            field: 'name',
+            message: ['value.length <= 10']
+          },
+          {
+            field: 'alias',
+            message: ['value.length >= 3']
+          }
+        ]
+      }
 
       expect(resultChar).toMatchObject(desiredChar)
     })
