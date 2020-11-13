@@ -1,24 +1,15 @@
-const { isVisibleGroup, buildField, buildResponse } = require('./utils')
+const {
+  buildSkeleton,
+  validateSkeleton,
+  responseBuilder
+} = require('./utils/skeleton')
 
 function run (rules, character) {
-  return (
-    rules.groups
-      // filtra apenas pelos grupos visíveis
-      .filter(isVisibleGroup)
+  const data = { ...rules, character }
+  const skeleton = buildSkeleton(data)
+  const validSkeleton = validateSkeleton(skeleton)
 
-      // percorre os grupos
-      .map((group) => {
-        return {
-          id: group.id,
-
-          // define o "fields" e percorre os campos
-          fields: group.fields.map((field) => {
-            return buildField(field, character)
-          })
-        }
-      })
-      .map(buildResponse)
-  )
+  return responseBuilder(validSkeleton)
 }
 
 module.exports = {
