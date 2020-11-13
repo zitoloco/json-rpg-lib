@@ -1,4 +1,4 @@
-const { find, mergeAll, mergeRight, propEq } = require('ramda')
+const { find, mergeAll, propEq } = require('ramda')
 
 function isVisibleGroup (group) {
   return group.visible !== false
